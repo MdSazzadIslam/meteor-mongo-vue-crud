@@ -1,35 +1,55 @@
 <template>
-  <div class="submit-form">
-    <h4>Add Student</h4>
-    <div class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <router-link to="/student-list" class="nav-link">List</router-link>
-      </li>
-    </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-sm-8">
+              <div class="card-title">Add Student</div>
+            </div>
+            <div class="col-sm-4">
+              <div class="float-md-right">
+                <router-link to="/student-list" class="nav-link"
+                  >List</router-link
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="submit-form">
+            <div v-if="!submitted">
+              <div class="form-group">
+                <label for="studentName">Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="studentName"
+                  required
+                  v-model="student.studentName"
+                  name="student.studentName"
+                />
+              </div>
 
-    <div v-if="!submitted">
-      <div class="form-group">
-        <label for="studentName">Name</label>
-        <input
-          type="text"
-          class="form-control"
-          id="studentName"
-          required
-          v-model="student.studentName"
-          name="student.studentName"
-        />
+              <div class="form-group">
+                <label for="departmentName">Department</label>
+                <select class="form-control" v-model="student.departmentName">
+                  <option
+                    v-for="department in departments"
+                    v-bind:key="department._id"
+                  >
+                    {{ department.departmentName }}
+                  </option>
+                </select>
+              </div>
+
+              <button @click="saveStudent" class="btn btn-success">
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label for="departmentName">Department</label>
-        <select class="form-control" v-model="student.departmentName">
-          <option v-for="department in departments" v-bind:key="department._id">
-            {{ department.departmentName }}
-          </option>
-        </select>
-      </div>
-
-      <button @click="saveStudent" class="btn btn-success">Submit</button>
     </div>
   </div>
 </template>

@@ -1,51 +1,65 @@
 <template>
-  <div class="list row">
-    <div class="col-md-8">
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Enter subject name for searching"
-          v-model="subjectName"
-          name="subjectName"
-        />
-        <div class="input-group-append">
-          <button
-            class="btn btn-outline-secondary"
-            type="button"
-            @click="getSubjectById"
-          >
-            Search
-          </button>
+  <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="card-title">Subject List</div>
+        </div>
+        <div class="col-sm-4">
+          <div class="float-md-right">
+            <router-link to="/add-subject" class="nav-link">Add</router-link>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/add-subject" class="nav-link">Add</router-link>
-        </li>
+    <div class="card-body">
+      <div class="list row">
+        <div class="col-md-12">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Enter subject name for searching"
+              v-model="subjectName"
+              name="subjectName"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                @click="getSubjectById"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-border table-striped">
+              <thead class="thead-dark">
+                <tr>
+                  <th>Subject</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+
+              <tr v-for="subject in subjects" v-bind:key="subject._id">
+                <td>{{ subject.subjectName }}</td>
+                <td>
+                  <button
+                    class="btn btn-sm btn-danger"
+                    @click="deleteSubject(subject._id, subject.subjectName)"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
-
-      <h4>Subject List</h4>
-
-      <table class="styled-table">
-        <tr>
-          <th>Subject</th>
-
-          <th>delete</th>
-        </tr>
-        <tr v-for="subject in subjects" v-bind:key="subject._id">
-          <td>{{ subject.subjectName }}</td>
-
-          <button
-            class="badge badge-warning"
-            @click="deleteSubject(subject._id, subject.subjectName)"
-          >
-            Delete
-          </button>
-        </tr>
-      </table>
     </div>
   </div>
 </template>
