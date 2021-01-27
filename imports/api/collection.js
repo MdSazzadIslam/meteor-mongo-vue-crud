@@ -8,6 +8,8 @@ export const Subjects = new Mongo.Collection("subjects");
 if (Meteor.isClient) {
   Tracker.autorun(function () {
     Meteor.subscribe("subjects");
+    Meteor.subscribe("students");
+    Meteor.subscribe("departments");
   });
 } else if (Meteor.isServer) {
   Meteor.publish("subjects", function () {
@@ -19,13 +21,7 @@ if (Meteor.isClient) {
       }
     );
   });
-}
 
-if (Meteor.isClient) {
-  Tracker.autorun(function () {
-    Meteor.subscribe("departments");
-  });
-} else if (Meteor.isServer) {
   Meteor.publish("departments", function () {
     return Departments.find(
       {},
@@ -35,9 +31,35 @@ if (Meteor.isClient) {
       }
     );
   });
+
+  Meteor.publish("students", function () {
+    return Students.find(
+      {},
+      {
+        sort: { _id: -1 },
+        limit: 100,
+      }
+    );
+  });
 }
 
-if (Meteor.isClient) {
+/* if (Meteor.isClient) {
+  Tracker.autorun(function () {
+    Meteor.subscribe("departments");
+  });
+} else if (Meteor.isServer) {
+  Meteor.publish("students", function () {
+    return Students.find(
+      {},
+      {
+        sort: { _id: -1 },
+        limit: 100,
+      }
+    );
+  });
+} */
+
+/* if (Meteor.isClient) {
   Tracker.autorun(function () {
     Meteor.subscribe("students");
   });
@@ -51,7 +73,7 @@ if (Meteor.isClient) {
       }
     );
   });
-}
+} */
 
 if (Meteor.isServer) {
   Meteor.publish("allSubjects", () => {
